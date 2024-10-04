@@ -25,7 +25,7 @@ void ajouter();          //fonction ok
 void afficher();         //fonction ok
 void modifier();         //
 void supprimer();
-void rechercher();
+int rechercher();
 void trier();
 void statistiques();
 
@@ -180,8 +180,19 @@ int rechercher(){
     int referenceRechercher;
     printf("Veuillez entrer la reference que vous souhaites rechercher:\n");
     scanf("%d",&referenceRechercher);
-    if(referenceRechercher== reference){
-        printf("La reference a ete trouvé.\n");
+    for (int i = 0;i<compteur;i++){
+        if(referenceRechercher== reservations[i].reference){
+            printf("La reference a ete trouvé.\n");
+            printf("Nom: %s ;\n",reservations[i].nom);
+            printf("Prenom: %s ;\n",reservations[i].prenom);
+            printf("Age: %d ;\n",reservations[i].age);
+            printf("Tele: %s ;\n",reservations[i].tele);
+            printf("Statut: %s ;\n",reservations[i].statut);
+            printf("Reference: %d ;\n",reservations[i].reference);
+            printf("Date: %s ;\n",reservations[i].date);
+        }else{
+            printf("Aucune reservation n'a ete trouve avec cette reference. Veuillez verifier votre reference.\n");
+        }
     }
 }
 
