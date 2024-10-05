@@ -35,9 +35,9 @@ int main() {
 
 void dixreservations() {
     strcpy(reservations[compteur].nom, "hajar");
-    strcpy(reservations[compteur].prenom, "walfi");
+    strcpy(reservations[compteur].prenom, "Wolfy");
     strcpy(reservations[compteur].tele, "0660007874");
-    reservations[compteur].age = 22;
+    reservations[compteur].age = 13;
     strcpy(reservations[compteur].statut, "valide");
     reservations[compteur].reference = genererReference();
     strcpy(reservations[compteur].date, "01/01/2024");
@@ -91,7 +91,7 @@ void dixreservations() {
     strcpy(reservations[compteur].nom, "mina");
     strcpy(reservations[compteur].prenom, "walfi");
     strcpy(reservations[compteur].tele, "0675962100");
-    reservations[compteur].age = 45;
+    reservations[compteur].age = 17;
     strcpy(reservations[compteur].statut, "annule");
     reservations[compteur].reference = genererReference();
     strcpy(reservations[compteur].date, "02/03/2024");
@@ -112,7 +112,7 @@ void dixreservations() {
     reservations[compteur].age = 57;
     strcpy(reservations[compteur].statut, "reporte");
     reservations[compteur].reference = genererReference();
-    strcpy(reservations[compteur].date, "02/6/2024");
+    strcpy(reservations[compteur].date, "2/6/2024");
     compteur++;
     
     strcpy(reservations[compteur].nom, "nada");
@@ -136,13 +136,13 @@ void menu() {
         printf("                             3. Modifier une reservation            \n");
         printf("                             4. Supprimer une reservation           \n");
         printf("                             5. Rechercher une reservation          \n");
-        printf("                             6. Trier les reservations par nom      \n");
+        printf("                             6. Trier les reservations              \n");
         printf("                             7. Statistiques                        \n");
         printf("                             0. Quitter le programme              \n\n");
         printf("                           =============================          \n\n");
         printf("Entrez votre choix: ");
         scanf("%d", &choix);
-        getchar(); // Pour capturer le caractère de nouvelle ligne
+        getchar();
 
         switch (choix) {
             case 1:
@@ -201,7 +201,7 @@ void ajouter() {
     printf("1. Valide\t");
     printf("2. Reporte\t");
     printf("3. Annule\t");
-    printf("4. Traite\t");
+    printf("4. Traite\t\n");
     printf("Veuillez choisir une option d'apres le menu suivant:\n");
     scanf("%d", &choix);
     getchar();
@@ -212,18 +212,18 @@ void ajouter() {
                 strcpy(reservations[compteur].statut, "valide");
                 break;
             case 2:
-                strcpy(reservations[compteur].statut, "Reporte");
+                strcpy(reservations[compteur].statut, "reporte");
                 break;
             case 3:
-                strcpy(reservations[compteur].statut, "Annule");
+                strcpy(reservations[compteur].statut, "annule");
                 break;
             case 4:
-                strcpy(reservations[compteur].statut, "Traite");
+                strcpy(reservations[compteur].statut, "traite");
                 break;
         }
     } else {
         printf("La reservation n'a pas ete ajoutee. Veuillez entrer une option valide.\n");
-        return; // Ne pas incrémenter le compteur si la réservation n'est pas ajoutée
+        return;
     }
 
     printf("Entrez une date suivant cette forme: (j/m/a)\n");
@@ -252,10 +252,9 @@ void afficher() {
 
 void rechercher() {
     int choix;
-    printf("Voulez vous rechercher par nom ou par reference?\n");
-    printf("Choisissez:\n");
-    printf("1. pour chercher par reference;\n");
-    printf("2. pour chercher par nom;\n");
+    printf("Voulez vous rechercher par\n");
+    printf("1. Reference;\n");
+    printf("2. Nom;\n");
     scanf("%d", &choix);
     switch (choix) {
         case 1: {
@@ -322,7 +321,7 @@ void supprimer() {
             for (int j = i; j < compteur - 1; j++) {
                 reservations[j] = reservations[j + 1];
             }
-            compteur--; // Décrementer le compteur
+            compteur--;
             printf("La reservation a bien ete supprimee.\n");
             break;
         }
@@ -361,7 +360,7 @@ void modifier() {
             printf("1. Valide \t");
             printf("2. Reporte\t");
             printf("3. Annule\t");
-            printf("4. Traite\t");
+            printf("4. Traite\t\n");
             printf("Veuillez choisir une option d'apres le menu suivant:\n");
             scanf("%d", &choix);
             getchar();
@@ -400,8 +399,9 @@ void trier() {
     int choix;
     printf("Voulez vous trier par:\n");
     printf("1. Nom;\n");
-    printf("2. Reference;\n ");
+    printf("2. Statut;\n ");
     scanf("%d",&choix);
+    getchar();
     switch (choix) {
         case 1:
             for (int i = 0; i < compteur - 1; i++) {
@@ -417,16 +417,16 @@ void trier() {
             break;
 
         case 2:
-            for (int i = 0; i < compteur - 1; i++) {
+             for (int i = 0; i < compteur - 1; i++) {
                 for (int j = 0; j < compteur - i - 1; j++) {
-                    if (reservations[j].reference > reservations[j + 1].reference) {
+                    if (strcmp(reservations[j].statut, reservations[j + 1].statut) > 0) {
                         RESERVATION temp = reservations[j];
                         reservations[j] = reservations[j + 1];
                         reservations[j + 1] = temp;
                     }
                 }
             }
-            printf("Les reservations ont ete triees par reference.\n");
+            printf("Les réservations ont été triées par statut.\n");
             break;
 
         default:
@@ -443,11 +443,11 @@ void statistiques() {
     int age18 = 0; 
     int age1935 = 0;
     int age36p = 0;
-    int totalAge = 0;
+    int total= 0;
 
     // Statistique par âge
     for (int i = 0; i < compteur; i++) {
-        totalAge += reservations[i].age;
+        total += reservations[i].age;
 
         if (reservations[i].age >= 0 && reservations[i].age <= 18) {
             age18++;
@@ -472,7 +472,7 @@ void statistiques() {
     // Statistique par moyenne
     float moyenne;
     if (compteur > 0) {
-        moyenne = (float)totalAge / compteur;
+        moyenne = (float)total / compteur;
     } else {
         moyenne = 0;
     }
@@ -488,3 +488,4 @@ void statistiques() {
     printf("Nombre de reservations annulees : %d\n", annule);
     printf("Nombre de reservations traitees : %d\n", traite);
 }
+
